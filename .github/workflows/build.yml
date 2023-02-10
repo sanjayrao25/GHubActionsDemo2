@@ -20,7 +20,6 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Testing the project using pytest
         run: |
-          pip install pytest
-          pip install pytest-cov
-          cd tests/functionalTestCases/src
-          pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          pip install coverage
+          coverage run --source=plugin_module -m pytest -v tests && coverage report -m
+          coverage html && open htmlcov/index.html
