@@ -36,4 +36,5 @@ jobs:
         uses: unsplash/comment-on-pr@v1.3.0
         with:
           msg: |
-            I am a PR Comment
+            echo "I am a PR Comment"
+            pwd
