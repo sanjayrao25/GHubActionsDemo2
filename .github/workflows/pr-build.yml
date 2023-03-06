@@ -32,5 +32,5 @@ jobs:
       - name: Create comment on pull request
         uses: unsplash/comment-on-pr@v1.3.0
         with:
-          message: |
+          msg: |
             I am a PR Comment
