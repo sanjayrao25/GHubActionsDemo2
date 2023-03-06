@@ -33,7 +33,7 @@ jobs:
           cd tests/functionalTestCases/src
           coverage run -m pytest -v tests.py && coverage report -m
       - name: Create comment on pull request
-        uses: unsplash/comment-on-pr@v1
+        uses: unsplash/comment-on-pr@v1.3.0
         with:
           message: |
             I am a PR Comment
