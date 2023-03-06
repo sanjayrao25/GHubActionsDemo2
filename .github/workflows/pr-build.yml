@@ -32,9 +32,12 @@ jobs:
           pip install coverage
           cd tests/functionalTestCases/src
           coverage run -m pytest -v tests.py && coverage report -m
+          cd ../../../
+          echo "I am a PR Comment" >> results.txt
+          pwd >> results.txt
       - name: Create comment on pull request
-        uses: unsplash/comment-on-pr@v1.3.0
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          msg: |
-            echo "I am a PR Comment"
-            pwd
+          path: results.txt
