@@ -29,9 +29,11 @@ jobs:
           pip install coverage
           cd tests/functionalTestCases/src
           coverage run -m pytest -v tests.py && coverage report -m
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v1
+      - name: Add comment to PR
+        uses: peter-evans/create-or-update-comment@v1.4.3
         with:
-          message: |
-                  This is a PR Comment
-          GITHUB_TOKEN: ${{ github.token }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Thank you for submitting this pull request! :tada:
+            
+            We'll review it as soon as possible and get back to you with any feedback.
