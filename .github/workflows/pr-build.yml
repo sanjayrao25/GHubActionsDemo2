@@ -29,8 +29,9 @@ jobs:
           pip install coverage
           cd tests/functionalTestCases/src
           coverage run -m pytest -v tests.py && coverage report -m
-      - name: Create comment on pull request
-        uses: unsplash/comment-on-pr@v1.3.0
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v1
         with:
-          msg: |
-            I am a PR Comment
+          message: |
+                  This is a PR Comment
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
