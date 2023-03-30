@@ -1,0 +1,43 @@
+
+name: Pull Request Workflow
+on: 
+  pull_request:
+    branch:
+      main
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11.0"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python for Demo
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies for demo Python project  
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Testing the project using pytest
+        run: |
+          pip install coverage
+          cd tests/functionalTestCases/src
+          coverage run -m pytest -v tests.py && coverage report -m
+          cd ../../../
+          echo "I am a PR Comment" >> results.txt
+          pwd >> results.txt
+      - name: Create comment on pull request
+        uses: machine-learning-apps/pr-comment@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          path: results.txt
